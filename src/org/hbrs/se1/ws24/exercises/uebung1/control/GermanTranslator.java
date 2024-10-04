@@ -12,7 +12,7 @@ public class GermanTranslator implements Translator {
 
 		number--;
 
-		String[] werte = {"eins", "zwei", "drei", "vier", "fuenf", "sechs", "sieben", "acht", "neun", "zehn"};
+		String[] werte = {"eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn"};
 
 		String ausgabe;
 
