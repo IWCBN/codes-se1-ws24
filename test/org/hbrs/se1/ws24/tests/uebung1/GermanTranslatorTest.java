@@ -12,7 +12,6 @@ public class GermanTranslatorTest {
     @Test
     public void translateNumber() {
         GermanTranslator translator = new GermanTranslator();
-
         assertEquals("eins" , translator.translateNumber(1));
         assertEquals("fünf" , translator.translateNumber(5));
         assertEquals("zehn" , translator.translateNumber(10));
