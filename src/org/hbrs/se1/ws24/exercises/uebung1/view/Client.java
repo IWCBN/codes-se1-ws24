@@ -14,8 +14,8 @@ public class Client {
 			//
 			// Strenge Implementierung (nur) gegen das Interface Translator gewuenscht!
 
-			 System.out.println("Das Ergebnis der Berechnung: " +
-					"[das Ergebnis an dieser Stelle]" );
+			 Translator t1 = TranslatorFactory.creatTranslator();
+			 System.out.println("Das Ergebnis der Berechnung: " + t1.translateNumber(aNumber) );
 
 		 }
 }
