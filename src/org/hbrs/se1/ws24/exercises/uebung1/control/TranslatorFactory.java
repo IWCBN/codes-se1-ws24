@@ -4,11 +4,14 @@ public class TranslatorFactory {
     //private static GermanTranslator translator1;
 
     public static Translator creatTranslator(){
-        /*if(translator1==null){
-            GermanTranslator translator1 = new GermanTranslator();
-        }*/
 
         return new GermanTranslator();
+    }
+
+    public static Translator creatTranslator(String date){
+        GermanTranslator g1 = new GermanTranslator();
+        g1.setDate(date);
+        return g1;
     }
 
 }
