@@ -52,8 +52,18 @@ Sie möchten eine eigene readme.md (also eine wie diese Seite) implementieren? H
 Das Tutorium von GitHub ist recht umfangreich, aber auch hilfreich für komplexere Seiten: <br>
 [Guide von GitHub](https://docs.github.com/de/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
+# git
+better `rebase` then pull
+```bash
+git remote show
+git stash
+git pull <remote> <branch>
+git stash pop
+```
 
-
-
+GitHub push into solution repository via ssh
+```bash
+git push git@github.com:IWCBN/codes-se1-ws24.git
+```
 
 
