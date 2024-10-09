@@ -3,10 +3,18 @@ package org.hbrs.se1.ws24.exercises.uebung1.control;
 public class TranslatorFactory {
     //private static GermanTranslator translator1;
 
+<<<<<<< HEAD
+=======
+    //Umbenennen in createGermanTranslator
+>>>>>>> origen/main
     public static Translator createTranslator(){
         return new GermanTranslator();
     }
 
+<<<<<<< HEAD
+=======
+    //Umbenennen in createGermanTranslator
+>>>>>>> origen/main
     public static Translator createTranslator(String date){
         GermanTranslator t1 = new GermanTranslator();
         t1.setDate(date);
