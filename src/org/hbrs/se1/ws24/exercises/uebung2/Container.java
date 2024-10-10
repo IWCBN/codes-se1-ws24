@@ -4,7 +4,13 @@ import java.util.*;
 public class Container {
     LinkedList<Member> members;
 
-    addMember(Member member){
+    public void addMember(Member member) {
 
+        for(Member person : members){
+            if(person.getID() == member.getID()){
+                throw new ContainerException();
+            }
+        }
+        members.add(member);
     }
 }
