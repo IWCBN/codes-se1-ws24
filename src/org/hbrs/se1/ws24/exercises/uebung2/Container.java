@@ -4,4 +4,7 @@ import java.util.*;
 public class Container {
     LinkedList<Member> members;
 
+    addMember(Member member){
+
+    }
 }
