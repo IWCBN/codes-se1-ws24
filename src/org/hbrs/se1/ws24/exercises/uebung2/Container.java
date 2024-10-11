@@ -6,11 +6,12 @@ public class Container {
 
 
     /**
-     * Fügt neuen member zum Container hinzu. Falls schon ein Member mit derselben Member ID vorhanden ist wird ein Fehler
-     * vom Typ ContainerException geworfen.
+     * Fügt neuen Member zum Container hinzu. Falls schon ein Member mit derselben Member ID
+     * vorhanden ist, wird ein Fehler vom Typ ContainerException geworfen.
      *
      * @param member ist der Member der zu dem Container hinzugefügt werden soll.
-     * @throws ContainerException wird geworfen, wenn es schon einen Member mit derselben Member ID in dem Container vorhanden ist.
+     * @throws ContainerException wird geworfen, wenn es schon einen Member
+     * mit derselben Member ID in dem Container gibt.
      */
     public void addMember(Member member) throws ContainerException{
 
@@ -23,8 +24,8 @@ public class Container {
     }
 
     /**
-     * Löscht den Member aus dem Container heraus, falls dieser Vorhanden ist. Falls kein Member mit der übergebenen ID
-     * vorhanden ist, wird eine Fehlermeldung als String zurückgegeben.
+     * Löscht den Member aus dem Container heraus, falls dieser bereits orhanden ist.
+     * Falls kein Member mit der übergebenen ID vorhanden ist, wird eine Fehlermeldung als String zurückgegeben.
      *
      * @param id ist die ID des Members die gelöscht werden soll.
      * @return gibt bei erfolgreichem/nicht erfolgreichem Löschen eine Nachricht mit der Member ID als String zurück.
@@ -40,7 +41,7 @@ public class Container {
     }
 
     /**
-     * Gibt auf der Console alle Member aus dem Container aus.
+     * Gibt auf der Konsole alle Member aus dem Container aus.
      */
     public void dump(){
         for(Member member : members){
