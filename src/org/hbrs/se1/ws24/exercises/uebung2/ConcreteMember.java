@@ -1,14 +1,14 @@
 package org.hbrs.se1.ws24.exercises.uebung2;
 
 /**
- * Diese Klasse dient als beispiel Implementierung eines Members.
+ * Diese Klasse dient als Beispiel-Implementierung eines Members.
  */
 public class ConcreteMember implements Member{
 
   private final Integer ID;
 
   /**
-   * Konstruktor, welcher ein Member-Objekt erzeugt mit vorgegebener ID.
+   * Konstruktor, welcher ein Member-Objekt mit vorgegebener ID erzeugt.
    *
    * @param id ist die ID dieses Member-Objekts
    */
