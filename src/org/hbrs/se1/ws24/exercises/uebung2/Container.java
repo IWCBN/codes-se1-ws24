@@ -39,5 +39,22 @@ public class Container {
         return "Es existiert kein Member mit Folgender Member ID: " + id;
     }
 
+    /**
+     * Gibt auf der Console alle Member aus dem Container aus.
+     */
+    public void dump(){
+        for(Member member : members){
+            System.out.println(member);
+        }
+    }
+
+    /**
+     * Ermittelt die Anzahl der Member Objekte in dem Container.
+     *
+     * @return gibt zurück wie viele Member in dem Container vorhanden sind.
+     */
+    public int size() {
+        return members.size();
+    }
 
 }
