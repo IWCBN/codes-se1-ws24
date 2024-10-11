@@ -44,4 +44,16 @@ public class ConcreteMember implements Member{
     return false;
   }
 
+  /**
+   * Gibt einen String zurück welcher wie folgt aufgebaut ist:
+   *<br>
+   * <q>Member (ID = <code>ID</code>)</q>
+   *
+   * @return Member (ID = <code>ID</code>)
+   */
+  @Override
+  public String toString() {
+    return "Member (ID = " + ID + ")";
+  }
+
 }
