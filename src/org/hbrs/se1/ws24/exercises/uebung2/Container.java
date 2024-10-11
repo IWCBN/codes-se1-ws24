@@ -45,7 +45,7 @@ public class Container {
      */
     public void dump(){
         for(Member member : members){
-            System.out.println(member + "\n");
+            System.out.println(member);
         }
     }
 
