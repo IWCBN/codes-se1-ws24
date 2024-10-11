@@ -4,7 +4,15 @@ import java.util.*;
 public class Container {
     LinkedList<Member> members;
 
-    public void addMember(Member member) {
+
+    /**
+     * Fügt neuen member zum Container hinzu. Falls schon ein Member mit derselben Member ID vorhanden ist wird ein Fehler
+     * vom Typ ContainerException geworfen.
+     *
+     * @param member ist der Member der zu dem Container hinzugefügt werden soll.
+     * @throws ContainerException wird geworfen, wenn es schon einen Member mit derselben Member ID in dem Container vorhanden ist.
+     */
+    public void addMember(Member member) throws ContainerException{
 
         for(Member person : members){
             if(person.getID() == member.getID()){
@@ -14,6 +22,13 @@ public class Container {
         members.add(member);
     }
 
+    /**
+     * Löscht den Member aus dem Container heraus, falls dieser Vorhanden ist. Falls kein Member mit der übergebenen ID
+     * vorhanden ist, wird eine Fehlermeldung als String zurückgegeben.
+     *
+     * @param id ist die ID des Members die gelöscht werden soll.
+     * @return gibt bei erfolgreichem/nicht erfolgreichem Löschen eine Nachricht mit der Member ID als String zurück.
+     */
     public String deleteMember(int id) {
         for(Member member : members){
             if(member.getID() == id){
