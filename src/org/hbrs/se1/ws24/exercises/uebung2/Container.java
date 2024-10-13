@@ -2,7 +2,7 @@ package org.hbrs.se1.ws24.exercises.uebung2;
 import java.util.*;
 
 public class Container {
-    LinkedList<Member> members;
+    List<Member> members = new LinkedList<>();
 
 
     /**
@@ -16,7 +16,7 @@ public class Container {
     public void addMember(Member member) throws ContainerException{
 
         for(Member person : members){
-            if(person.getID() == member.getID()){
+            if(person.getID().equals(member.getID())){
                 throw new ContainerException(member.getID());
             }
         }
