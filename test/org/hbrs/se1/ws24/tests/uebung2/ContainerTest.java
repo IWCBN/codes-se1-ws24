@@ -110,7 +110,7 @@ public class ContainerTest {
   public void testDumpOne() {
     toTest.addMember(m1);
     toTest.dump();
-    assertEquals("Member (ID = 1)\n", outputStream.toString());
+    assertEquals("Member (ID = 1)\r\n", outputStream.toString());
   }
 
   @Test
@@ -118,7 +118,7 @@ public class ContainerTest {
     toTest.addMember(m1);
     toTest.addMember(m2);
     toTest.dump();
-    assertEquals("Member (ID = 1)\nMember (ID = 6)\n", outputStream.toString());
+    assertEquals("Member (ID = 1)\r\nMember (ID = 6)\r\n", outputStream.toString());
   }
 
 
