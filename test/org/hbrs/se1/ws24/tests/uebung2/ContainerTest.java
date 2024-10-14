@@ -36,8 +36,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ContainerTest {
 
   //Der folgende Block ist für das Auslesen der internen Member-Liste
-  private Field memberList;
-  private List<Member> internalMembers;
+//  private Field memberList;
+//  private List<Member> internalMembers;
 
   //Der folgende Block ist für das Testen der Konsolenausgabe
   private ByteArrayOutputStream outputStream;
@@ -66,16 +66,16 @@ public class ContainerTest {
     outputStream = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outputStream));
 
-    try {
-      memberList = Container.class.getDeclaredField("members");
-      memberList.setAccessible(true);
-      //noinspection unchecked
-      internalMembers = (List<Member>) memberList.get(toTest);
-    } catch (NoSuchFieldException e) {
-      throw new RuntimeException("Field 'members' not found", e);
-    } catch (IllegalAccessException e) {
-      throw new RuntimeException("Field 'members' not accessible",e);
-    }
+//    try {
+//      memberList = Container.class.getDeclaredField("members");
+//      memberList.setAccessible(true);
+//      //noinspection unchecked
+//      internalMembers = (List<Member>) memberList.get(toTest);
+//    } catch (NoSuchFieldException e) {
+//      throw new RuntimeException("Field 'members' not found", e);
+//    } catch (IllegalAccessException e) {
+//      throw new RuntimeException("Field 'members' not accessible",e);
+//    }
   }
 
   //Tests der Size-Methode
@@ -125,20 +125,22 @@ public class ContainerTest {
   //Tests der Add-Methode
   @Test
   public void testAddMember() {
-    assertTrue(internalMembers.isEmpty());
+    assertEquals(0, toTest.size());
     toTest.addMember(m1);
-    assertTrue(internalMembers.contains(m1));
-    assertEquals(1, internalMembers.size());
+    toTest.dump();
+    assertTrue(outputStream.toString().contains("Member (ID = 1)"));
+    assertEquals(1, toTest.size());
   }
 
   @Test
   public void testAddMultipleMembers() {
-    assertTrue(internalMembers.isEmpty());
+    assertEquals(0, toTest.size());
     toTest.addMember(m1);
     toTest.addMember(m2);
-    assertTrue(internalMembers.contains(m1));
-    assertTrue(internalMembers.contains(m2));
-    assertEquals(2, internalMembers.size());
+    toTest.dump();
+    assertTrue(outputStream.toString().contains("Member (ID = 1)"));
+    assertTrue(outputStream.toString().contains("Member (ID = 6)"));
+    assertEquals(2, toTest.size());
   }
 
   //Tests der Add-Methode mit Exceptions
@@ -165,41 +167,43 @@ public class ContainerTest {
   @Test
   public void testRemoveMemberOne(){
     toTest.addMember(m1);
-    assertFalse(internalMembers.isEmpty());
+    assertEquals(1,toTest.size());
     assertEquals("Folgender Member wurde gelöscht: 1", toTest.deleteMember(m1.getID()));
-    assertFalse(internalMembers.contains(m1));
-    assertTrue(internalMembers.isEmpty());
+    assertEquals(0, toTest.size());
   }
 
   @Test
   public void testRemoveMemberTwo(){
     toTest.addMember(m1);
     toTest.addMember(m2);
-    assertFalse(internalMembers.isEmpty());
+    assertEquals(2, toTest.size());
     assertEquals("Folgender Member wurde gelöscht: 1", toTest.deleteMember(m1.getID()));
-    assertFalse(internalMembers.contains(m1));
-    assertTrue(internalMembers.contains(m2));
-    assertEquals(1, internalMembers.size());
+    toTest.dump();
+    assertFalse(outputStream.toString().contains("Member (ID = 1)"));
+    assertTrue(outputStream.toString().contains("Member (ID = 6)"));
+    assertEquals(1, toTest.size());
   }
 
   @Test
   public void testRemoveMemberOneNotExisting(){
     toTest.addMember(m1);
-    assertFalse(internalMembers.isEmpty());
+    assertEquals(1, toTest.size());
     assertEquals("Es existiert kein Member mit Folgender Member ID: 0", toTest.deleteMember(0));
-    assertTrue(internalMembers.contains(m1));
-    assertEquals(1, internalMembers.size());
+    toTest.dump();
+    assertTrue(outputStream.toString().contains("Member (ID = 1)"));
+    assertEquals(1, toTest.size());
   }
 
   @Test
   public void testRemoveMemberManyNotExisting() {
     toTest.addMember(m1);
     toTest.addMember(m2);
-    assertFalse(internalMembers.isEmpty());
+    assertEquals(2, toTest.size());
     assertEquals("Es existiert kein Member mit Folgender Member ID: 0", toTest.deleteMember(0));
-    assertTrue(internalMembers.contains(m1));
-    assertTrue(internalMembers.contains(m2));
-    assertEquals(2, internalMembers.size());
+    toTest.dump();
+    assertTrue(outputStream.toString().contains("Member (ID = 1)"));
+    assertTrue(outputStream.toString().contains("Member (ID = 6)"));
+    assertEquals(2, toTest.size());
   }
 
   //Reset für folgende Tests und zurücksetzen des Streams System.out.
@@ -213,8 +217,8 @@ public class ContainerTest {
     System.setOut(originalOut);
     outputStream = null;
 
-    internalMembers = null;
-    memberList = null;
+//    internalMembers = null;
+//    memberList = null;
   }
 
 }
