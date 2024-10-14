@@ -15,11 +15,10 @@ public class Container {
      */
     public void addMember(Member member) throws ContainerException{
 
-        for(Member person : members){
-            if(person.getID().equals(member.getID())){
-                throw new ContainerException(member.getID());
-            }
+        if(members.contains(member)){
+            throw new ContainerException(member.getID());
         }
+
         members.add(member);
     }
 
