@@ -158,6 +158,13 @@ public class ContainerTest {
     assertThrowsExactly(ContainerException.class, () -> toTest.addMember(m2));
   }
 
+  @Test
+  public void testAddDifferentMemberException(){
+    Member m3 = new ConcreteMember(MEMBERSID[0]); //Erzeugt einen neuen Member mit der Selben Member ID
+    toTest.addMember(m1);
+    assertThrowsExactly(ContainerException.class, () -> toTest.addMember(m3));
+  }
+
   //Tests der Remove-Methode
   @Test
   public void testRemoveMemberZero(){
