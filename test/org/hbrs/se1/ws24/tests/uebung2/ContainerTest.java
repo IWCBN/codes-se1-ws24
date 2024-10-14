@@ -160,7 +160,7 @@ public class ContainerTest {
 
   @Test
   public void testAddDifferentMemberException(){
-    Member m3 = new ConcreteMember(MEMBERSID[0]); //Erzeugt einen neuen Member mit der Selben Member ID
+    Member m3 = new ConcreteMember(MEMBERSID[0]); //Erzeugt einen neuen Member mit der selben Member ID
     toTest.addMember(m1);
     assertThrowsExactly(ContainerException.class, () -> toTest.addMember(m3));
   }
