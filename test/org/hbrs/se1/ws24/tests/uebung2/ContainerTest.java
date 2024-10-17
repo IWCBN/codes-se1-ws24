@@ -16,23 +16,7 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * </p>
- *   Diese Klasse ist dafür da um die Container-Klasse zu testen. Hierfür werden folgende Zustände geprüft:
- *   <ul>
- *     <li>Keine Member</li>
- *     <li>1 Member</li>
- *     <li>2 Member</li>
- *   </ul>
- * </p>
- * <p>
- *   Für die Überprüfung von den add und remove methoden wird wenn nötigt auch der internen Zustand der
- *   <code>LinkedList</code> zugegriffen.
- * </p>
- *
- * @version 0.1
- * @author IWCBN
- */
+
 public class ContainerTest {
 
   //Der folgende Block ist für das Auslesen der internen Member-Liste
@@ -66,16 +50,6 @@ public class ContainerTest {
     outputStream = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outputStream));
 
-//    try {
-//      memberList = Container.class.getDeclaredField("members");
-//      memberList.setAccessible(true);
-//      //noinspection unchecked
-//      internalMembers = (List<Member>) memberList.get(toTest);
-//    } catch (NoSuchFieldException e) {
-//      throw new RuntimeException("Field 'members' not found", e);
-//    } catch (IllegalAccessException e) {
-//      throw new RuntimeException("Field 'members' not accessible",e);
-//    }
   }
 
   //Tests der Size-Methode
@@ -224,8 +198,6 @@ public class ContainerTest {
     System.setOut(originalOut);
     outputStream = null;
 
-//    internalMembers = null;
-//    memberList = null;
   }
 
 }
