@@ -15,12 +15,22 @@ public class Container{
     List<Member> members = new LinkedList<>();
     private PersistenceStrategy<Member> persistenceStrategy = null;
 
-
+    /**
+     * Überschriebt den Konstruktor durch einen Privaten Konstruktor damit er nicht mehr von außerhalb der Klasse aufgerufen werden kann.
+     */
     private Container() { }
 
+    /**
+     * <h1>Singleton</h1>
+     * Verhindert das mehrfache Instanziieren der Klasse.
+     *
+     * Die synchronized Methode verhindert das auf grund von Multi Threading mehrere Instanzen zum selben Zeitpunkt erzeugt werden können.
+     *
+     * @return gibt eine Instanz der Container Klasse zurück
+     */
     public static Container getInstance() {
         if (INSTANCE == null) {
-            synchronized (Container.class) { //wegen Multithreading
+            synchronized (Container.class) {
                 if (INSTANCE == null) {
                     INSTANCE = new Container();
                 }
@@ -29,6 +39,9 @@ public class Container{
         return INSTANCE;
     }
 
+    /**
+     * @param persistenceStrategy kann gesetzt werden für die store und load Methode.
+     */
     public void setPersistenceStrategy(PersistenceStrategy<Member> persistenceStrategy) {
         this.persistenceStrategy = persistenceStrategy;
     }
@@ -85,6 +98,11 @@ public class Container{
          return members.size();
      }
 
+    /**
+     * Speichert die LinkList members auf der Festplatte ab.
+     *
+     * @throws PersistenceException wird geworfen, wenn ein Fehler beim Speichern auftritt.
+     */
      public void store()  throws PersistenceException {
          if(persistenceStrategy == null){
              throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine PersistenceStrategy gesetzt.");
@@ -98,6 +116,11 @@ public class Container{
 
      }
 
+    /**
+     * Laded die gespeicherte LinkList und überschreibt damit die LinkList members
+     *
+     * @throws PersistenceException wird geworfen, wenn ein Fehler beim Laden der Gespeicherten Members auftritt.
+     */
      public void load() throws PersistenceException {
          if(persistenceStrategy == null){
              throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine PersistenceStrategy gesetzt.");

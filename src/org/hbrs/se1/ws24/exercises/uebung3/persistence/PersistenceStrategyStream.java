@@ -17,6 +17,12 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
         this.location = location;
     }
 
+    /**
+     * Bekommt die Liste Member und speichert diese auf dem Datenträger.
+     *
+     * @param member wird auf dem Datenträger persistent gespeichert.
+     * @throws PersistenceException wird geworfen bei einem Fehler während dem Speicherprozess.
+     */
     @Override
     /**
      * Method for saving a list of Member-objects to a disk (HDD)
@@ -46,6 +52,11 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
         }
     }
 
+    /**
+     * Ladet die zuletzt gespeicherte Member Liste von dem Datenträger.
+     * @return gibt die geladene Liste zurück.
+     * @throws PersistenceException wirft einen Fehler, wenn das Laden von dem Datenträger nicht geklappt hat.
+     */
     @Override
     /**
      * Method for loading a list of Member-objects from a disk (HDD)
