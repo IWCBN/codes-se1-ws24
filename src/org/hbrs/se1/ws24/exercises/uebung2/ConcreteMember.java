@@ -1,9 +1,11 @@
 package org.hbrs.se1.ws24.exercises.uebung2;
 
+import java.io.Serializable;
+
 /**
  * Diese Klasse dient als Beispiel-Implementierung eines Members.
  */
-public class ConcreteMember implements Member{
+public class ConcreteMember implements Member, Serializable {
 
   private final Integer ID;
 
