@@ -12,16 +12,9 @@ import java.util.*;
 public class Container{
 
     private static Container INSTANCE = null;
-    private File path = null;
     List<Member> members = new LinkedList<>();
+    private PersistenceStrategy<Member> persistenceStrategy = null;
 
-    public void setPath(File path) {
-        this.path = path;
-    }
-
-    public File getPath() {
-        return path;
-    }
 
     private Container() { }
 
@@ -34,6 +27,10 @@ public class Container{
             }
         }
         return INSTANCE;
+    }
+
+    public void setPersistenceStrategy(PersistenceStrategy<Member> persistenceStrategy) {
+        this.persistenceStrategy = persistenceStrategy;
     }
 
     /**
@@ -88,18 +85,27 @@ public class Container{
          return members.size();
      }
 
-
-     String ort = "C:\\Users\\adkie\\IdeaProjects\\codes-se1-ws24\\src\\org\\hbrs\\se1\\ws24\\exercises\\uebung3\\3file.txt";
-
      public void store()  throws PersistenceException {
-         PersistenceStrategyStream<Member> speicher = new PersistenceStrategyStream<>();
-         speicher.setLocation(ort);
-         speicher.save(members);
+         if(persistenceStrategy == null){
+             throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine PersistenceStrategy gesetzt.");
+         }
+
+         try{
+             persistenceStrategy.save(members);
+         }catch(UnsupportedOperationException e){
+             throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht Implementiert");
+         }
+
      }
 
      public void load() throws PersistenceException {
-         PersistenceStrategyStream<Member> speicher = new PersistenceStrategyStream<>();
-         speicher.setLocation(ort);
-         members = speicher.load();
+         if(persistenceStrategy == null){
+             throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine PersistenceStrategy gesetzt.");
+         }
+         try{
+             members = persistenceStrategy.load();
+         }catch(UnsupportedOperationException e){
+             throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht Implementiert");
+         }
     }
 }

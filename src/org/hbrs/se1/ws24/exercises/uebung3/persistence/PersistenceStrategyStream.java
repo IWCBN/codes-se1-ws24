@@ -2,10 +2,7 @@ package org.hbrs.se1.ws24.exercises.uebung3.persistence;
 
 import org.hbrs.se1.ws24.exercises.uebung2.Member;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +23,10 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
      * Look-up in Google for further help!
      */
     public void save(List<E> member) throws PersistenceException  {
+        if(location == null){
+            throw new PersistenceException(PersistenceException.ExceptionType.NoStorageLocationSet, "Der angegebene Speicherort ist ungültig");
+        }
+
         try {
 
             FileOutputStream file = new FileOutputStream(location);
@@ -38,8 +39,10 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
             output.writeObject(member);
             output.close();         //Ich würde das gerne in finally verschieben. Leider wird dort die Variable nicht erkannt,
 
-        }catch (Exception e) {
-            System.out.println("Folgende Naricht wurde übergeben: " + e.getMessage()); //Muss noch richtig implementiert werden!!!
+        }catch (FileNotFoundException e) {
+            throw new PersistenceException(PersistenceException.ExceptionType.NoStorageLocationSet, "Der angegebene Speicherort ist ungültig");
+        } catch (IOException e) {
+            throw new PersistenceException(PersistenceException.ExceptionType.IOError, "Das Speicher der Liste war nicht erfolgreich. Weitere Information: " + e.getMessage());
         }
     }
 
@@ -72,6 +75,11 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
         // and finally close the streams
 
         try{
+
+            if(location == null){
+                throw new PersistenceException(PersistenceException.ExceptionType.NoStorageLocationSet, "Der angegebene Speicherort ist ungültig");
+            }
+
             // Reads data using the ObjectInputStream
             FileInputStream fileStream = new FileInputStream(location);
             ObjectInputStream objStream = new ObjectInputStream(fileStream);
@@ -86,10 +94,12 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
             objStream.close();
 
             return newList;
-        } catch (Exception e) {
-            System.out.println("Fehler muss noch erstellt werden"); //Muss gleich noch implementiert werden.
+        } catch (FileNotFoundException e) {
+            throw new PersistenceException(PersistenceException.ExceptionType.NoStorageLocationSet, "Der angegebene Speicherort ist ungültig");
+        } catch (IOException e) {
+            throw new PersistenceException(PersistenceException.ExceptionType.IOError, "Das Speichern der Liste war nicht erfolgreich. Weitere Information: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, e.getMessage());
         }
-
-        return null;
     }
 }
