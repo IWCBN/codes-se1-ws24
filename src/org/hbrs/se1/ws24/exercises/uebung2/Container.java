@@ -81,12 +81,12 @@ public class Container{
      }
 
     /**
-     * Gibt auf der Konsole alle Member aus dem Container aus.
+     * Gibt eine Kopie der LinkList members aus.
+     *
+     * @return gibt eine Kopie der LinkList members aus
      */
-     public void dump(){
-         for(Member member : members){
-             System.out.println(member);
-         }
+     public LinkedList getCurrentList(){
+         return new LinkedList(members);
      }
 
     /**
