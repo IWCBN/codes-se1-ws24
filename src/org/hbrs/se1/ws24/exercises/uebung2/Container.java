@@ -1,12 +1,8 @@
 package org.hbrs.se1.ws24.exercises.uebung2;
 import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceException;
 import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategy;
-import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategyStream;
+import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategyMongoDB;
 
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-
-import java.io.*;
 import java.util.*;
 
 public class Container{
@@ -23,7 +19,7 @@ public class Container{
     /**
      * <h1>Singleton</h1>
      * Verhindert das mehrfache Instanziieren der Klasse.
-     *
+     * <br>
      * Die synchronized Methode verhindert das auf grund von Multi Threading mehrere Instanzen zum selben Zeitpunkt erzeugt werden können.
      *
      * @return gibt eine Instanz der Container Klasse zurück
@@ -43,6 +39,9 @@ public class Container{
      * @param persistenceStrategy kann gesetzt werden für die store und load Methode.
      */
     public void setPersistenceStrategy(PersistenceStrategy<Member> persistenceStrategy) {
+        if (persistenceStrategy instanceof PersistenceStrategyMongoDB) {
+            throw new UnsupportedOperationException("Die gewählte persistenceStrategy ist nicht Implementiert");
+        }
         this.persistenceStrategy = persistenceStrategy;
     }
 
@@ -64,7 +63,7 @@ public class Container{
      }
 
     /**
-     * Löscht den Member aus dem Container heraus, falls dieser bereits orhanden ist.
+     * Löscht den Member aus dem Container heraus, falls dieser bereits vorhanden ist.
      * Falls kein Member mit der übergebenen ID vorhanden ist, wird eine Fehlermeldung als String zurückgegeben.
      *
      * @param id ist die ID des Members die gelöscht werden soll.
