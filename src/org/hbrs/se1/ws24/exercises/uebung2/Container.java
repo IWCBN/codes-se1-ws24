@@ -12,7 +12,7 @@ public class Container{
     private PersistenceStrategy<Member> persistenceStrategy = null;
 
     /**
-     * Überschriebt den Konstruktor durch einen Privaten Konstruktor damit er nicht mehr von außerhalb der Klasse aufgerufen werden kann.
+     * Überschreibt den Konstruktor durch einen privaten Konstruktor, damit er nicht mehr von außerhalb der Klasse aufgerufen werden kann.
      */
     private Container() { }
 
@@ -20,12 +20,12 @@ public class Container{
      * <h1>Singleton</h1>
      * Verhindert das mehrfache Instanziieren der Klasse.
      * <br>
-     * Die synchronized Methode verhindert das auf grund von Multi Threading mehrere Instanzen zum selben Zeitpunkt erzeugt werden können.
+     * Die synchronized Methode verhindert das auf Grund von Multi Threading mehrere Instanzen zum selben Zeitpunkt erzeugt werden können.
      *
      * @return gibt eine Instanz der Container Klasse zurück
      */
     public static Container getInstance() {
-        if (INSTANCE == null) {
+        if(INSTANCE == null) {
             synchronized (Container.class) {
                 if (INSTANCE == null) {
                     INSTANCE = new Container();
@@ -39,8 +39,8 @@ public class Container{
      * @param persistenceStrategy kann gesetzt werden für die store und load Methode.
      */
     public void setPersistenceStrategy(PersistenceStrategy<Member> persistenceStrategy) {
-        if (persistenceStrategy instanceof PersistenceStrategyMongoDB) {
-            throw new UnsupportedOperationException("Die gewählte persistenceStrategy ist nicht Implementiert");
+        if(persistenceStrategy instanceof PersistenceStrategyMongoDB) {
+            throw new UnsupportedOperationException("Die gewählte persistenceStrategy ist nicht implementiert");
         }
         this.persistenceStrategy = persistenceStrategy;
     }
@@ -53,9 +53,9 @@ public class Container{
      * @throws ContainerException wird geworfen, wenn es schon einen Member
      * mit derselben Member ID in dem Container gibt.
      */
-     public void addMember(Member member) throws ContainerException{
+     public void addMember(Member member) throws ContainerException {
 
-         if(members.contains(member)){
+         if(members.contains(member)) {
              throw new ContainerException(member.getID());
          }
 
@@ -70,13 +70,13 @@ public class Container{
      * @return gibt bei erfolgreichem/nicht erfolgreichem Löschen eine Nachricht mit der Member ID als String zurück.
      */
      public String deleteMember(int id) {
-         for(Member member : members){
-             if(member.getID() == id){
+         for(Member member : members) {
+             if(member.getID() == id) {
                  members.remove(member);
                  return "Folgender Member wurde gelöscht: " + member.getID();
              }
          }
-         return "Es existiert kein Member mit Folgender Member ID: " + id;
+         return "Es existiert kein Member mit folgender Member ID: " + id;
      }
 
     /**
@@ -102,32 +102,33 @@ public class Container{
      *
      * @throws PersistenceException wird geworfen, wenn ein Fehler beim Speichern auftritt.
      */
-     public void store()  throws PersistenceException {
-         if(persistenceStrategy == null){
+     public void store() throws PersistenceException {
+         if(persistenceStrategy == null) {
              throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine PersistenceStrategy gesetzt.");
          }
 
-         try{
+         try {
              persistenceStrategy.save(members);
-         }catch(UnsupportedOperationException e){
-             throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht Implementiert");
+         } catch(UnsupportedOperationException e) {
+             throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht implementiert");
          }
 
      }
 
     /**
-     * Laded die gespeicherte LinkList und überschreibt damit die LinkList members
+     * Lädt die gespeicherte LinkList und überschreibt damit die LinkList members
      *
-     * @throws PersistenceException wird geworfen, wenn ein Fehler beim Laden der Gespeicherten Members auftritt.
+     * @throws PersistenceException wird geworfen, wenn ein Fehler beim Laden der gespeicherten Members auftritt.
      */
      public void load() throws PersistenceException {
-         if(persistenceStrategy == null){
+         if(persistenceStrategy == null) {
              throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine PersistenceStrategy gesetzt.");
          }
-         try{
+
+         try {
              members = persistenceStrategy.load();
-         }catch(UnsupportedOperationException e){
-             throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht Implementiert");
+         } catch(UnsupportedOperationException e) {
+             throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht implementiert");
          }
     }
 }
