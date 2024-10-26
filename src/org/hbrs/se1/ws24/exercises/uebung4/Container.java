@@ -13,7 +13,7 @@ public class Container{
     List<UserStoryInterface> userStorys = new LinkedList<>();
     private PersistenceStrategy<UserStoryInterface> persistenceStrategy = null;
 
-    public Container() { }
+    private Container() { }
 
     public static Container getInstance() {
         if(INSTANCE == null) {
