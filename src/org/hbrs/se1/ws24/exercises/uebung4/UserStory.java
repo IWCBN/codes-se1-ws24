@@ -1,6 +1,8 @@
 package org.hbrs.se1.ws24.exercises.uebung4;
 
-public class UserStory implements UserStoryInterface {
+import java.io.Serializable;
+
+public class UserStory implements UserStoryInterface, Serializable {
     private final int id;
     private String title;
     private String acceptanceCriterion;
