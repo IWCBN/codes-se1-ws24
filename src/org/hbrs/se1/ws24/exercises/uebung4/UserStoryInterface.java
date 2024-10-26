@@ -4,7 +4,6 @@ public interface UserStoryInterface {
 
 
     public int getID();
-    public void setID(int id);
     public String getTitle();
     public void setTitle(String title);
     public String getAcceptanceCriterion();
@@ -12,5 +11,4 @@ public interface UserStoryInterface {
     public int getPrioritization();
     public String getProject();
     public void setProject(String project);
-    public String toString();
 }
