@@ -7,76 +7,123 @@ import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategyMongoD
 import java.util.*;
 
 
-public class Container{
+/**
+ * Die Klasse <code>Container</code> implementiert ein Container-Objekt zum
+ * Speichern von generischen Objekten <code>T</code>. Sie verfügt über einen Singleton-Zugriff auf die
+ * Instanz.
+ *
+ * <p>Die Klasse verfügt über Methoden um eine Liste der Objekte in der
+ * Instanz zu verwalten.</p>
+ *
+ * <p>Die Klasse implementiert die Persistenz des Containers mittels
+ * der {@link PersistenceStrategy}-Klasse.</p>
+ *
+ * @version 1.0
+ * @since 2020-11-04
+ * @param <T> sind die generischen Objekte, die in dem Container gespeichert werden.
+ */
+public class Container<T> {
+  private static volatile Container<?> INSTANCE = null;
+  private List<T> items = new LinkedList<>();
+  private PersistenceStrategy<T> persistenceStrategy = null;
 
-    private static Container INSTANCE = null;
-    List<UserStoryInterface> userStorys = new LinkedList<>();
-    private PersistenceStrategy<UserStoryInterface> persistenceStrategy = null;
+  /**
+   * Privater Konstruktor um eine Instanzierung von außen zu vermeiden.
+   */
+  private Container() {}
 
-    private Container() { }
-
-    public static Container getInstance() {
-        if(INSTANCE == null) {
-            synchronized (Container.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new Container();
-                }
-            }
+  /**
+   * Diese Methode gibt die Instanz der des Kontainers zurück. Fals noch kein Kontainer exestieren sollte,
+   * dann wird einer erstellt.
+   *
+   * @return die Instanz der {@link Container}-Klasse
+   * @param <T> ist der Type der generischen Objekte
+   */
+  @SuppressWarnings("unchecked")
+  public static <T> Container<T> getInstance() {
+    if (INSTANCE == null) {
+      synchronized (Container.class) {
+        if (INSTANCE == null) {
+          INSTANCE = new Container<>();
         }
-        return INSTANCE;
+      }
     }
+    return (Container<T>) INSTANCE;
+  }
 
-    public void setPersistenceStrategy(PersistenceStrategy<UserStoryInterface> persistenceStrategy) {
-        if(persistenceStrategy instanceof PersistenceStrategyMongoDB) {
-            throw new UnsupportedOperationException("Die gewählte persistenceStrategy ist nicht implementiert");
-        }
-        this.persistenceStrategy = persistenceStrategy;
+  /**
+   * Mit dieser Methode kann man die {@link PersistenceStrategy} festlegen für den Container.
+   *
+   * @param persistenceStrategy ist die gewählte {@link PersistenceStrategy}
+   */
+  public void setPersistenceStrategy(PersistenceStrategy<T> persistenceStrategy) {
+    if (persistenceStrategy instanceof PersistenceStrategyMongoDB) {
+      throw new UnsupportedOperationException("Die gewählte persistenceStrategy ist nicht implementiert");
     }
+    this.persistenceStrategy = persistenceStrategy;
+  }
 
-     public void addUserStory(UserStoryInterface userStory) throws ContainerException {
-
-         if(this.userStorys.contains(userStory)) {
-             throw new ContainerException(userStory.getID());
-         }
-
-         this.userStorys.add(userStory);
-     }
-
-     public String deleteMember(int id) {
-
-         return "Es existiert kein Member mit folgender Member ID: " + id;
-     }
-
-     public LinkedList getCurrentList(){
-         return new LinkedList(userStorys);
-     }
-
-     public int size() {
-         return userStorys.size();
-     }
-
-     public void store() throws PersistenceException {
-         if(persistenceStrategy == null) {
-             throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine PersistenceStrategy gesetzt.");
-         }
-
-         try {
-             persistenceStrategy.save(userStorys);
-         } catch(UnsupportedOperationException e) {
-             throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht implementiert");
-         }
-
-     }
-
-     public void load() throws PersistenceException {
-         if(persistenceStrategy == null) {
-             throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine PersistenceStrategy gesetzt.");
-         }
-
-         try {
-             userStorys = persistenceStrategy.load();
-         } catch(UnsupportedOperationException e) {
-             throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht implementiert");
-         }
+  /**
+   * Fügt eine {@link T} Objekt hinzu, sofern es nicht schon vorhanden ist.
+   *
+   * @param item ist das Object {@link T} welches Hinzugefügt werden soll.
+   * @throws ContainerException wird geworfen wenn <code>item</code> schon vorhanden ist.
+   */
+  public void addItem(T item) throws ContainerException {
+    if (this.items.contains(item)) {
+      throw new ContainerException(item);
     }
+    this.items.add(item);
+  }
+
+  /**
+   * Gibt eine Kopie der gespeicherten Liste<{@link T}> als {@link LinkedList} zurück.
+   * @return die
+   */
+  public LinkedList<T> getCurrentList() {
+    return new LinkedList<>(items);
+  }
+
+  /**
+   * Gibt die Anzahl der Elemente in dem Container zurück.
+   *
+   * @return die Anzahl der Elemente im container
+   */
+  public int size() {
+    return items.size();
+  }
+
+  /**
+   * Speichert die aktuellen Elemente mit der angegebenen {@link PersistenceStrategy}.
+   *
+   * @throws PersistenceException wenn keine {@link PersistenceStrategy} gesetzt ist oder
+   *         wenn die gewählte {@link PersistenceStrategy} nicht implementiert ist.
+   */
+  public void store() throws PersistenceException {
+    if (persistenceStrategy == null) {
+      throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine PersistenceStrategy gesetzt.");
+    }
+    try {
+      persistenceStrategy.save(items);
+    } catch (UnsupportedOperationException e) {
+      throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht implementiert");
+    }
+  }
+
+  /**
+   * Lädt die aktuellen Elemente mit der angegebenen {@link PersistenceStrategy} in den <code>Container</code>.
+   *
+   * @throws PersistenceException wenn keine {@link PersistenceStrategy} gesetzt ist oder
+   *         wenn die gewählte {@link PersistenceStrategy} nicht implementiert ist.
+   */
+  public void load() throws PersistenceException {
+    if (persistenceStrategy == null) {
+      throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Es wurde keine PersistenceStrategy gesetzt.");
+    }
+    try {
+      items = persistenceStrategy.load();
+    } catch (UnsupportedOperationException e) {
+      throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht implementiert");
+    }
+  }
 }
