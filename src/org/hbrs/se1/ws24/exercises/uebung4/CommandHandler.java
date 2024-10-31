@@ -28,8 +28,8 @@ public class CommandHandler {
           System.out.println("\t\tAufwand: Ist eine Zahl, die den Aufwand beziffert um die User Story umzusetzen.");
           System.out.println("\t\tRisiko: Ist eine Zahl, die das Risiko beziffert wenn die User Story nicht umgesetzt wird.");
           System.out.println("\t\tProjekt Name: Gibt den Namen des zugehörigen Projektes aus.");
-          System.out.println("store\n\tSpeichert den aktellen Stand der User Stories");
-          System.out.println("load\n\tLädt den aktuellen Stand der User Stories von der Festplatte");
+          System.out.println("store: Speichert den aktellen Stand der User Stories");
+          System.out.println("load: Lädt den aktuellen Stand der User Stories von der Festplatte");
 
           break;
         case "save":
