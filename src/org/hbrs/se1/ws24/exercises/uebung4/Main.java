@@ -5,8 +5,9 @@ import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategyStream
 public class Main {
 
   public static void main(String[] args) {
-    Container.getInstance().setPersistenceStrategy(new PersistenceStrategyStream<UserStoryInterface>());
-    CommandHandler.run(Container.getInstance());
+    Container<UserStoryInterface> instans = Container.getInstance();
+    instans.setPersistenceStrategy(new PersistenceStrategyStream<UserStoryInterface>());
+    CommandHandler.run(instans);
 
   }
 }

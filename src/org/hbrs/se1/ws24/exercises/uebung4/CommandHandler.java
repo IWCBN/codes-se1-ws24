@@ -2,13 +2,16 @@ package org.hbrs.se1.ws24.exercises.uebung4;
 
 import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceException;
 import sun.misc.Signal;
+import java.util.Scanner;
+
+import java.util.Scanner;
 
 public class CommandHandler {
   public static void run(Container container) {
     String input = "";
     while (true) {
-      Signal.handle(new Signal("INT"),sig -> System.out.println("Interrupted by Ctrl+C"));
-      input = System.console().readLine();
+      Scanner sc = new Scanner(System.in);
+      input = sc.nextLine();
 
       switch (input) {
         case "exit":
