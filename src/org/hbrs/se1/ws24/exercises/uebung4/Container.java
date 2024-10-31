@@ -33,8 +33,8 @@ public class Container<T> {
   private Container() {}
 
   /**
-   * Diese Methode gibt die Instanz der des Kontainers zurück. Fals noch kein Kontainer exestieren sollte,
-   * dann wird einer erstellt.
+   * Diese Methode gibt die Instanz des Containers zurück.
+   * Falls noch kein Container existieren sollte, wird einer erstellt.
    *
    * @return die Instanz der {@link Container}-Klasse
    * @param <T> ist der Type der generischen Objekte
@@ -66,7 +66,7 @@ public class Container<T> {
   /**
    * Fügt eine {@link T} Objekt hinzu, sofern es nicht schon vorhanden ist.
    *
-   * @param item ist das Object {@link T} welches Hinzugefügt werden soll.
+   * @param item ist das Object {@link T} welches hinzugefügt werden soll.
    * @throws ContainerException wird geworfen wenn <code>item</code> schon vorhanden ist.
    */
   public void addItem(T item) throws ContainerException {
@@ -78,7 +78,7 @@ public class Container<T> {
 
   /**
    * Gibt eine Kopie der gespeicherten Liste<{@link T}> als {@link LinkedList} zurück.
-   * @return die
+   * @return Kopie der gespeicherten Liste
    */
   public LinkedList<T> getCurrentList() {
     return new LinkedList<>(items);
@@ -87,7 +87,7 @@ public class Container<T> {
   /**
    * Gibt die Anzahl der Elemente in dem Container zurück.
    *
-   * @return die Anzahl der Elemente im container
+   * @return Anzahl der Elemente im Container
    */
   public int size() {
     return items.size();
