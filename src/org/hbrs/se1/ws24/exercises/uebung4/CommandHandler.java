@@ -24,7 +24,7 @@ public class CommandHandler {
         case "help":
           printHelp();
           break;
-        case "save":
+        case "store":
           try {
             container.store();
           } catch (PersistenceException e) {
