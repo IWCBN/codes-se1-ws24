@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class CommandHandler {
   public static void run(Container container) {
-    String input = "";
+    String input;
     while (true) {
       Scanner sc = new Scanner(System.in);
       input = sc.nextLine();
@@ -18,6 +18,7 @@ public class CommandHandler {
 
       switch (befehl[0]) {
         case "exit":
+          sc.close();
           System.exit(0);
           break;
         case "help":
@@ -45,8 +46,8 @@ public class CommandHandler {
           System.out.println("Tabelle(noch nicht implementiert)");
           break;
         case "enter":
-          sc.close();
           container.addItem(enterUnserStory(input));
+          System.out.println("User Story wurde erfasst.");
           break;
 
         default:
@@ -57,7 +58,6 @@ public class CommandHandler {
   }
   private static UserStory enterUnserStory(String input) {
     String[] parameter = input.split("enter\s\"|[\s]?\"[\s]\"|\"$");
-    UserStory newUserStory;
     int[] valuesGloger = new int[4];
     if (parameter.length == 8) {
       try{
@@ -71,18 +71,17 @@ public class CommandHandler {
       }
     }else{
       parameter = new String[8];
-      Scanner sc1 = new Scanner(System.in);
+      Scanner sc = new Scanner(System.in);
       System.out.print("Geben sie den Titel der User Story an: ");
-      parameter[1] = sc1.nextLine();
+      parameter[1] = sc.nextLine();
       System.out.print("Geben sie die Akzeptanzkriterien User Story an: ");
-      parameter[2] = sc1.nextLine();
+      parameter[2] = sc.nextLine();
       valuesGloger[0] = enterGloger("Geben sie ihre Bewertung für den Mehrwert an: ");
       valuesGloger[1] = enterGloger("Geben sie ihre Bewertung für die Strafe an: ");
       valuesGloger[2] = enterGloger("Geben sie ihre Bewertung für den Aufwand an: ");
       valuesGloger[3] = enterGloger("Geben sie ihre Risiko an: ");
       System.out.print("Geben sie den Projekt Namen an: ");
-      parameter[7] = sc1.nextLine();
-      sc1.close();
+      parameter[7] = sc.nextLine();
     }
     return new UserStory(parameter[1], parameter[2], parameter[7], valuesGloger[0], valuesGloger[2], valuesGloger[3], valuesGloger[1]);
   }
@@ -107,12 +106,19 @@ public class CommandHandler {
   private static int enterGloger(String consoleOutput){
     Scanner sc2 = new Scanner(System.in);
     System.out.print(consoleOutput);
+    int valueGloger;
+
     try{
-      return  sc2.nextInt();
+      valueGloger = sc2.nextInt();
+      if (valueGloger < 1){throw new InputMismatchException("Der Wert ist zu klein: ");}
     } catch (InputMismatchException e) {
-      return enterGloger("Der eingegebene Wert ist keine Zahl. Bitte Versuchen sie es erneut:");
-    }finally{
-      sc2.close();
+      if (e.getMessage()== null) {
+        return enterGloger("Der eingegebene Wert ist keine Zahl. Bitte Versuchen sie es erneut: ");
+      }else {
+        return enterGloger(e.getMessage());
+      }
     }
+
+    return valueGloger;
   }
 }
