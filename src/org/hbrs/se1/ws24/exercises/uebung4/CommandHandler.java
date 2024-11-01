@@ -56,6 +56,14 @@ public class CommandHandler {
       }
     }
   }
+
+  /**
+   * Legt eine neue UserStory an und gibt diese zurück.
+   * Die benötigten Informationen werden entweder aus dem Input heraus genommen oder einzelt abgefragt.
+   *
+   * @param input übergibt den initialen Befehl, der auf der Console eingegeben wurde.
+   * @return gibt die UserStory zurück.
+   */
   private static UserStory enterUnserStory(String input) {
     String[] parameter = input.split("enter\s\"|[\s]?\"[\s]\"|\"$");
     int[] valuesGloger = new int[4];
@@ -86,8 +94,9 @@ public class CommandHandler {
     return new UserStory(parameter[1], parameter[2], parameter[7], valuesGloger[0], valuesGloger[2], valuesGloger[3], valuesGloger[1]);
   }
 
-
-
+  /**
+   * Gibt den help Text auf der Console aus.
+   */
   private static void printHelp(){
     System.out.println("\nFolgende Befehle stehen zur Verfügung:\nexit: Beendet das Programm.\nhelp: Gibt genau diese Liste aus.");
     System.out.println("enter [\"Titel\" \"Akzeptanzkriterium\" \"Mehrwert\" \"Strafe\" \"Aufwand\" \"Risiko\" \"Projekt Name\"]:");
@@ -103,6 +112,12 @@ public class CommandHandler {
     System.out.println("load: Lädt den aktuellen Stand der User Stories von der Festplatte\n");
   }
 
+  /**
+   * Ist für die Einlesung von Int werten für die Gloger Formel zuständig und übernimmt die Fehlerbehandlung.
+   *
+   * @param consoleOutput ist die Ausgabe die einen Auffordert den int Wert einzugeben.
+   * @return gibt den erfolgreich eingelesenen int Wert zurück.
+   */
   private static int enterGloger(String consoleOutput){
     Scanner sc2 = new Scanner(System.in);
     System.out.print(consoleOutput);
