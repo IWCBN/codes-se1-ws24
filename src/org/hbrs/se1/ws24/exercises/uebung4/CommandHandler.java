@@ -46,7 +46,7 @@ public class CommandHandler {
           System.out.println("Tabelle(noch nicht implementiert)");
           break;
         case "enter":
-          container.addItem(enterUnserStory(input));
+          container.addItem(enterUserStory(input));
           System.out.println("User Story wurde erfasst.");
           break;
 
@@ -64,7 +64,7 @@ public class CommandHandler {
    * @param input übergibt den initialen Befehl, der auf der Console eingegeben wurde.
    * @return gibt die UserStory zurück.
    */
-  private static UserStory enterUnserStory(String input) {
+  private static UserStory enterUserStory(String input) {
     String[] parameter = input.split("enter\s\"|[\s]?\"[\s]\"|\"$");
     int[] valuesGloger = new int[4];
     if (parameter.length == 8) {
@@ -75,7 +75,7 @@ public class CommandHandler {
         valuesGloger[3] = Integer.parseInt(parameter[6]);
       } catch (NumberFormatException e) {
         System.out.println("Die Werte für die Gloger Formel konnten nicht in Zahlen umgewandelt werden. Bitte geben sie alle Angaben erneut ein.");
-        enterUnserStory("enter");
+        enterUserStory("enter");
       }
     }else{
       parameter = new String[8];
@@ -128,7 +128,7 @@ public class CommandHandler {
       if (valueGloger < 1){throw new InputMismatchException("Der Wert ist zu klein: ");}
     } catch (InputMismatchException e) {
       if (e.getMessage()== null) {
-        return enterGloger("Der eingegebene Wert ist keine Zahl. Bitte Versuchen sie es erneut: ");
+        return enterGloger("Der eingegebene Wert ist keine Zahl. Bitte versuchen sie es erneut: ");
       }else {
         return enterGloger(e.getMessage());
       }
