@@ -1,6 +1,7 @@
 package org.hbrs.se1.ws24.exercises.uebung4;
 
 import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceException;
+import org.hbrs.se1.ws24.exercises.uebung4.view.ContainerView;
 import sun.misc.Signal;
 
 import java.util.InputMismatchException;
@@ -43,7 +44,7 @@ public class CommandHandler {
           }
           break;
         case "dump":
-          System.out.println("Tabelle(noch nicht implementiert)");
+          ContainerView.dump(container.getCurrentList());
           break;
         case "enter":
           container.addItem(enterUserStory(input));

@@ -2,7 +2,7 @@ package org.hbrs.se1.ws24.exercises.uebung4;
 
 import java.io.Serializable;
 
-public class UserStory implements UserStoryInterface, Serializable {
+public class UserStory implements UserStoryInterface, Serializable , HasColum{
     private final int id;
     private String title;
     private String acceptanceCriterion;
@@ -81,5 +81,13 @@ public class UserStory implements UserStoryInterface, Serializable {
 
     public String toString() {
         return "ID: "+ id +"Titel: " + title;
+    }
+
+    public String getHeadColumn(String alignment) {
+        return String.format(alignment, "ID", "Titel", "Kriterium", "Projekt", "BusinessValue", "Effort", "Risk", "Penalty", "Prioritization");
+    }
+
+    public String generateColumn(String alignment) {
+        return String.format(alignment, id, title, acceptanceCriterion, project, businessValue, effort, risk, penalty, prioritization);
     }
 }
