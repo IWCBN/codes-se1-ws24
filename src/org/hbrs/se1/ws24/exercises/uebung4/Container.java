@@ -125,5 +125,6 @@ public class Container<T> {
     } catch (UnsupportedOperationException e) {
       throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht implementiert");
     }
+    UserStory.setNextId(items.size());
   }
 }

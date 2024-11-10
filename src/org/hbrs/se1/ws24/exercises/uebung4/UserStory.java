@@ -12,10 +12,10 @@ public class UserStory implements UserStoryInterface, Serializable , HasColum{
     private int effort;
     private int risk;
     private int penalty;
-    private static int nextId = 1;
+    private static int nextId = 0;
 
     public UserStory(String title, String acceptanceCriterion, String project, int businessValue, int effort, int risk, int penalty) {
-        id = nextId++;
+        id = ++nextId;
         this.title = title;
         this.acceptanceCriterion = acceptanceCriterion;
         this.project = project;
@@ -36,6 +36,9 @@ public class UserStory implements UserStoryInterface, Serializable , HasColum{
         return id;
     }
 
+    static void setNextId(int id) {
+        nextId = id;
+    }
 
     @Override
     public String getTitle() {
