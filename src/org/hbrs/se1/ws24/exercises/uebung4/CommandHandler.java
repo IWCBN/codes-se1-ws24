@@ -15,7 +15,7 @@ public class CommandHandler {
       input = sc.nextLine();
 
       //Befehl von Parameter separieren.
-      String[] befehl = input.split(" ");
+      String[] befehl = input.split(" ",2);
 
       switch (befehl[0]) {
         case "exit":
@@ -44,7 +44,7 @@ public class CommandHandler {
           }
           break;
         case "dump":
-          ContainerView.dump(container.getCurrentList());
+          ContainerView.dump(container.getCurrentList(),befehl.length > 1 ? befehl[1] : null);
           break;
         case "enter":
           container.addItem(enterUserStory(input));

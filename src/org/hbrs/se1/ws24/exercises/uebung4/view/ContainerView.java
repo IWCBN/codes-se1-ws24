@@ -1,8 +1,10 @@
 package org.hbrs.se1.ws24.exercises.uebung4.view;
 
 import org.hbrs.se1.ws24.exercises.uebung4.HasColum;
+import org.hbrs.se1.ws24.exercises.uebung4.UserStoryInterface;
 
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 public class ContainerView {
 
@@ -23,13 +25,31 @@ public class ContainerView {
           " %-14s |"; //Prioritization
       System.out.println(((HasColum) items.get(0)).getHeadColumn(alignment));
       for (T item : items) {
-        System.out.println(((HasColum) item).generateColumn(alignment));
+        System.out.print(((HasColum) item).generateColumn(alignment));
       }
       return;
     }
     for (T item : items) {
       System.out.println(item);
     }
+  }
+
+  public static <T>void dump(LinkedList<? super UserStoryInterface> items,String projectFilter) {
+    if(items.isEmpty()){
+      System.out.println("Container is empty");
+      return;
+    }
+    if (projectFilter == null) {
+      dump(items);
+      return;
+    }
+    if (items.get(0) instanceof UserStoryInterface) {
+      dump(items.stream()
+          .filter(item -> ((UserStoryInterface) item).getProject().equals(projectFilter))
+          .collect(Collectors.toCollection(LinkedList::new)));
+      return;
+    }
+    throw new IllegalArgumentException("Not supported");
   }
 
 }
