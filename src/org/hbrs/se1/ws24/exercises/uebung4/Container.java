@@ -128,4 +128,12 @@ public class Container<T> {
     }
     UserStory.setNextId(items.size());
   }
+
+  /**
+   * Diese Methode reset die Instanz der {@link Container}-Klasse dies wird benötigt um die
+   * {@link Container}-Klasse vernünftig testen zu können.
+   */
+  public static void reset() {
+    INSTANCE = null;
+  }
 }
