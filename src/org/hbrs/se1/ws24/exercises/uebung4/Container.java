@@ -2,7 +2,7 @@ package org.hbrs.se1.ws24.exercises.uebung4;
 import org.hbrs.se1.ws24.exercises.uebung2.ContainerException;
 import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceException;
 import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategy;
-import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategyMongoDB;
+import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategyStream;
 
 import java.util.*;
 
@@ -57,10 +57,11 @@ public class Container<T> {
    * @param persistenceStrategy ist die gewählte {@link PersistenceStrategy}
    */
   public void setPersistenceStrategy(PersistenceStrategy<T> persistenceStrategy) {
-    if (persistenceStrategy instanceof PersistenceStrategyMongoDB) {
-      throw new UnsupportedOperationException("Die gewählte persistenceStrategy ist nicht implementiert");
+    if (persistenceStrategy instanceof PersistenceStrategyStream) {
+      this.persistenceStrategy = persistenceStrategy;
+      return;
     }
-    this.persistenceStrategy = persistenceStrategy;
+    throw new UnsupportedOperationException("Die gewählte persistenceStrategy ist nicht implementiert");
   }
 
   /**
