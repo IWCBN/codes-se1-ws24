@@ -1,6 +1,7 @@
 package org.hbrs.se1.ws24.exercises.uebung4.view;
 
 import org.hbrs.se1.ws24.exercises.uebung4.HasColum;
+import org.hbrs.se1.ws24.exercises.uebung4.UserStory;
 import org.hbrs.se1.ws24.exercises.uebung4.UserStoryInterface;
 
 import java.util.LinkedList;
@@ -13,7 +14,7 @@ public class ContainerView {
       System.out.println("Container is empty");
       return;
     }
-    if (items.get(0) instanceof HasColum) {
+    if (items.get(0) instanceof HasColum && items.get(0) instanceof UserStory) {
       String alignment = "| %-4s |" + //ID
           " %-20s |" + //Title
           " %-20s |" + //AcceptanceCriterion
