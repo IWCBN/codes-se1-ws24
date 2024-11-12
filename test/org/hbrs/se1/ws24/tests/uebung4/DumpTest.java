@@ -38,7 +38,7 @@ public class DumpTest {
     @Test
     public void dumpEmptyListTest(){
         ContainerView.dump(list,null);
-        String error = "Container is empty\r\n";
+        String error = "Container is empty\n";
         assertEquals(error, out.toString());
     }
 
