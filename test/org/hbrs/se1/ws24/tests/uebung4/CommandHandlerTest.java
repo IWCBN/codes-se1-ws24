@@ -21,6 +21,9 @@ public class CommandHandlerTest {
   private ByteArrayOutputStream out = null;
   private PersistenceStrategy<UserStory> persistenceStrategy = new PersistenceStrategyStream<>();
 
+  /**
+   * Setup für die Tests, um den Output Stream und den Container vorzubereiten.
+   */
   @BeforeEach
   public void setUp() {
     container = Container.getInstance();
@@ -29,6 +32,9 @@ public class CommandHandlerTest {
     System.setOut(new PrintStream(out));
   }
 
+  /**
+   * Test auf fehlerhaften Command.
+   */
   @Test
   public void notExistingCommandTest() {
     System.setIn(new ByteArrayInputStream("notExistingCommand\nexit\n".getBytes()));
@@ -36,6 +42,9 @@ public class CommandHandlerTest {
     assertEquals("Falsche Eingabe. Versuche 'help' für mehr Informationen.\n", out.toString());
   }
 
+  /**
+   * Test für den Help Command
+   */
   @Test
   public void helpTest() {
     System.setIn(new ByteArrayInputStream("help\nexit\n".getBytes()));
@@ -56,8 +65,12 @@ public class CommandHandlerTest {
         "load: Lädt den aktuellen Stand der User Stories von der Festplatte\n", out.toString());
   }
 
+  /**
+   * Test für den Enter Command
+   */
   @Test
   public void enterTest() {
+    //Eingabe simulation vorbereiten.
     String enter = "enter \"1\" \"2\" \"3\" \"4\" \"5\" \"6\" \"7\"\n";
     enter += "enter wrong\n";
     enter += "Titel\n";
@@ -69,7 +82,10 @@ public class CommandHandlerTest {
     enter += "Projekt\n";
     enter += "exit\n";
     System.setIn(new ByteArrayInputStream(enter.getBytes()));
+
     assertDoesNotThrow(() -> CommandHandler.run(container,new Scanner(System.in)));
+
+    //Ausgabe testen.
     assertFalse(out.toString().contains("Falsche Eingabe. Versuche 'help' für mehr Informationen."));
     assertTrue(container.size() == 2);
     UserStory.setNextId(0);
@@ -80,12 +96,16 @@ public class CommandHandlerTest {
         2, 3, 4)));
   }
 
+  /**
+   * Test für den Store Command.
+   */
   @Test
   public void storeTest() {
     UserStory story = new UserStory("1", "2", "3", 4, 5, 6, 7);
     container.addItem(story);
     System.setIn(new ByteArrayInputStream("store\nexit\n".getBytes()));
     assertDoesNotThrow(() -> CommandHandler.run(container,new Scanner(System.in)));
+    assertFalse(out.toString().contains("Falsche Eingabe. Versuche 'help' für mehr Informationen."));
     Container.reset();
     container = Container.getInstance();
     container.setPersistenceStrategy(persistenceStrategy);
@@ -102,18 +122,48 @@ public class CommandHandlerTest {
     container.addItem(story);
     System.setIn(new ByteArrayInputStream("store\nexit\n".getBytes()));
     assertDoesNotThrow(() -> CommandHandler.run(container,new Scanner(System.in)));
+    assertFalse(out.toString().contains("Falsche Eingabe. Versuche 'help' für mehr Informationen."));
     String lastMSG = out.toString().split("\n")[out.toString().split("\n").length - 2];
     assertEquals("Kritischer Fehler: Der Container kann nicht gespeichert werden.",lastMSG);
     lastMSG = out.toString().split("\n")[out.toString().split("\n").length - 1];
     assertEquals("Es wurde keine PersistenceStrategy gesetzt.",lastMSG);
   }
 
+  /**
+   * Test für den Load Command.
+   */
   @Test
   public void loadTest() {
     UserStory story = new UserStory("7", "6", "5", 4, 3, 2, 1);
     container.addItem(story);
+    try {
+      container.store();
+    } catch (PersistenceException e) {
+      throw new RuntimeException(e);
+    }
+    Container.reset();
+    container = Container.getInstance();
+    container.setPersistenceStrategy(persistenceStrategy);
+    assertTrue(container.size()==0);
+    System.setIn(new ByteArrayInputStream("load\nexit\n".getBytes()));
+    assertDoesNotThrow(() -> CommandHandler.run(container,new Scanner(System.in)));
+    assertFalse(out.toString().contains("Falsche Eingabe. Versuche 'help' für mehr Informationen."));
+    assertTrue(container.size() == 1);
+    assertTrue(container.getCurrentList().contains(story));
+    Container.reset();
+    container = Container.getInstance();
+    System.setIn(new ByteArrayInputStream("load\nexit\n".getBytes()));
+    assertDoesNotThrow(()-> CommandHandler.run(container,new Scanner(System.in)));
+    assertFalse(out.toString().contains("Falsche Eingabe. Versuche 'help' für mehr Informationen."));
+    String lastMSG = out.toString().split("\n")[out.toString().split("\n").length - 2];
+    assertEquals("Kritischer Fehler: Der Container kann nicht geladen werden.",lastMSG);
+    lastMSG = out.toString().split("\n")[out.toString().split("\n").length - 1];
+    assertEquals("Es wurde keine PersistenceStrategy gesetzt.",lastMSG);
   }
 
+  /**
+   * Reste der Tests, um den Input Stream und den Output Stream zurückzusetzen.
+   */
   @AfterEach
   public void tearDown() {
     Container.reset();

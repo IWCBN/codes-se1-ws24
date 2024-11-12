@@ -90,7 +90,6 @@ public class CommandHandler {
       valuesGloger[3] = enterGloger("Geben sie ihre Bewertung für das Risiko an: ", scann);
       System.out.print("Geben sie den Projekt Namen an: ");
       parameter[7] = scann.nextLine();
-      scann.nextLine();
     }
     return new UserStory(parameter[1], parameter[2], parameter[7], valuesGloger[0], valuesGloger[2], valuesGloger[3], valuesGloger[1]);
   }
