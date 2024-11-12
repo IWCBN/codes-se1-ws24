@@ -124,13 +124,13 @@ public class Container<T> {
     try {
       items = persistenceStrategy.load();
     } catch (UnsupportedOperationException e) {
-      throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte persistenceStrategy ist nicht implementiert");
+      throw new PersistenceException(PersistenceException.ExceptionType.ImplementationNotAvailable, "Die gewählte PersistenceStrategy ist nicht implementiert");
     }
     UserStory.setNextId(items.size());
   }
 
   /**
-   * Diese Methode reset die Instanz der {@link Container}-Klasse dies wird benötigt um die
+   * Diese Methode resetet die Instanz der {@link Container}-Klasse, dies wird benötigt um die
    * {@link Container}-Klasse vernünftig testen zu können.
    */
   public static void reset() {

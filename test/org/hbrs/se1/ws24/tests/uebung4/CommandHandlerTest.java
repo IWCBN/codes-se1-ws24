@@ -162,7 +162,7 @@ public class CommandHandlerTest {
   }
 
   /**
-   * Reste der Tests, um den Input Stream und den Output Stream zurückzusetzen.
+   * Reset der Tests, um den Input Stream und den Output Stream zurückzusetzen.
    */
   @AfterEach
   public void tearDown() {

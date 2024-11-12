@@ -60,9 +60,9 @@ public class CommandHandler {
 
   /**
    * Legt eine neue UserStory an und gibt diese zurück.
-   * Die benötigten Informationen werden entweder aus dem Input heraus genommen oder einzelt abgefragt.
+   * Die benötigten Informationen werden entweder aus dem Input heraus genommen oder einzeln abgefragt.
    *
-   * @param input übergibt den initialen Befehl, der auf der Console eingegeben wurde.
+   * @param input übergibt den initialen Befehl, der auf der Konsole eingegeben wurde.
    * @return gibt die UserStory zurück.
    */
   private static UserStory enterUserStory(String input, Scanner scann) {
@@ -113,9 +113,9 @@ public class CommandHandler {
   }
 
   /**
-   * Ist für die Einlesung von Int werten für die Gloger Formel zuständig und übernimmt die Fehlerbehandlung.
+   * Ist für die Einlesung von Int-Werten für die Gloger Formel zuständig und übernimmt die Fehlerbehandlung.
    *
-   * @param consoleOutput ist die Ausgabe die einen Auffordert den int Wert einzugeben.
+   * @param consoleOutput ist die Ausgabe, die auffordert den Int-Wert einzugeben.
    * @return gibt den erfolgreich eingelesenen int Wert zurück.
    */
   private static double enterGloger(String consoleOutput, Scanner scanner){
