@@ -119,7 +119,6 @@ public class CommandHandler {
    * @return gibt den erfolgreich eingelesenen int Wert zurück.
    */
   private static double enterGloger(String consoleOutput, Scanner scanner){
-    System.out.print(consoleOutput);
     double valueGloger = -1;
 
     System.out.print(consoleOutput);
