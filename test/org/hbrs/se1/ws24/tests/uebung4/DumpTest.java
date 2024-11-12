@@ -24,6 +24,9 @@ public class DumpTest {
     UserStory story2;
     UserStory story3;
 
+    /**
+     * Initialisierung der Testumgebung mit einer Liste und drei beispielhaften User Stories.
+     */
     @BeforeEach
     public void setUp() {
         out = new ByteArrayOutputStream();
@@ -35,6 +38,9 @@ public class DumpTest {
         story3 = new UserStory("Hallo wie geht es dir heute? Wird das alles Klappen?", "test", "test2", 1, 1, 454545454, 1);
     }
 
+    /**
+     * Prüft, ob eine Meldung für eine leere Liste in der Methode <code>dump</code> kommt.
+     */
     @Test
     public void dumpEmptyListTest(){
         ContainerView.dump(list,null);
@@ -42,6 +48,10 @@ public class DumpTest {
         assertEquals(error, out.toString());
     }
 
+    /**
+     * Prüft anhand einer beispielhaften User Story, ob die Eingaben in der Methode <code>dump</code>
+     * richtig funktionieren.
+     */
     @Test
     public void dumpNormalListTest(){
         list.addFirst(story);
@@ -51,6 +61,10 @@ public class DumpTest {
         assertEquals(soll, out.toString());
     }
 
+    /**
+     * Prüft, anhand mehrerer beispielhaften User Stories, ob die Eingaben in der Methode <code>dump</code>
+     * richtig funktionieren - fokussiert auf die Funktionalität der automatischen Zeilenumbrüche.
+     */
     @Test
     public void dumpLongListTest(){
         list.addFirst(story3);
@@ -70,6 +84,10 @@ public class DumpTest {
         assertEquals(soll, out.toString());
     }
 
+    /**
+     * Prüft, ob der Projekt-Filter in der Methode <code>dump</code> funktioniert, anhand
+     * von drei beispielhaften User Stories.
+     */
     @Test
     public void dumpFilterListTest(){
         list.addFirst(story3);
@@ -84,6 +102,11 @@ public class DumpTest {
         assertEquals(soll, out.toString());
     }
 
+
+    /**
+     * Prüft die Methode <code>dump</code> auf die Ausgabe mehrere Int-Werte (anstatt von
+     * einer User Story) in einer Liste.
+     */
     @Test
     public void dumpIntListTest(){
         LinkedList<Integer> list = new LinkedList<>();
@@ -95,12 +118,11 @@ public class DumpTest {
         assertEquals(soll, out.toString());
     }
 
-
-
-
+    /**
+     * Reset der Tests, um den Output Stream zurückzusetzen.
+     */
     @AfterEach
     public void tearDown() {
         System.setOut(originalOut);
-
     }
 }
