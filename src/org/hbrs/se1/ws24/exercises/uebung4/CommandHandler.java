@@ -4,6 +4,7 @@ import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceException;
 import org.hbrs.se1.ws24.exercises.uebung4.view.ContainerView;
 import sun.misc.Signal;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -28,7 +29,7 @@ public class CommandHandler {
           } catch (PersistenceException e) {
             System.out.println("Kritischer Fehler: Der Container kann nicht gespeichert werden.");
             System.out.println(e.getMessage());
-            System.exit(1);
+            return;
           }
           break;
         case "load":
@@ -37,7 +38,7 @@ public class CommandHandler {
           } catch (PersistenceException e) {
             System.out.println("Kritischer Fehler: Der Container kann nicht geladen werden.");
             System.out.println(e.getMessage());
-            System.exit(1);
+            return;
           }
           break;
         case "dump":
@@ -89,6 +90,7 @@ public class CommandHandler {
       valuesGloger[3] = enterGloger("Geben sie ihre Bewertung für das Risiko an: ", scann);
       System.out.print("Geben sie den Projekt Namen an: ");
       parameter[7] = scann.nextLine();
+      scann.nextLine();
     }
     return new UserStory(parameter[1], parameter[2], parameter[7], valuesGloger[0], valuesGloger[2], valuesGloger[3], valuesGloger[1]);
   }
@@ -97,7 +99,7 @@ public class CommandHandler {
    * Gibt den help Text auf der Console aus.
    */
   private static void printHelp(){
-    System.out.println("\nFolgende Befehle stehen zur Verfügung:\nexit: Beendet das Programm.\nhelp: Gibt genau diese Liste aus.");
+    System.out.println("Folgende Befehle stehen zur Verfügung:\nexit: Beendet das Programm.\nhelp: Gibt genau diese Liste aus.");
     System.out.println("enter [\"Titel\" \"Akzeptanzkriterium\" \"Mehrwert\" \"Strafe\" \"Aufwand\" \"Risiko\" \"Projekt Name\"]:");
     System.out.println("\tLegt eine neue User Story in dem System an. Folgende Werte werden benötigt:");
     System.out.println("\t\tTitel: Titel der User Story");
@@ -108,7 +110,7 @@ public class CommandHandler {
     System.out.println("\t\tRisiko: Ist eine Zahl, die das Risiko beziffert wenn die User Story nicht umgesetzt wird.");
     System.out.println("\t\tProjekt Name: Gibt den Namen des zugehörigen Projektes aus.");
     System.out.println("store: Speichert den aktellen Stand der User Stories");
-    System.out.println("load: Lädt den aktuellen Stand der User Stories von der Festplatte\n");
+    System.out.println("load: Lädt den aktuellen Stand der User Stories von der Festplatte");
   }
 
   /**

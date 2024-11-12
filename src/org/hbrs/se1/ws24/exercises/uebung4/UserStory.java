@@ -40,7 +40,7 @@ public class UserStory implements UserStoryInterface, Serializable , HasColum{
         return id;
     }
 
-    static void setNextId(int id) {
+    public static void setNextId(int id) {
         nextId = id;
     }
 
