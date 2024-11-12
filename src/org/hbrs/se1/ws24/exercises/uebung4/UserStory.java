@@ -46,7 +46,7 @@ public class UserStory implements UserStoryInterface, Serializable , HasColum{
 
     @Override
     public String getTitle() {
-        return "";
+        return title;
     }
 
     @Override
