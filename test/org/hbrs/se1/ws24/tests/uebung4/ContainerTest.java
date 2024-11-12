@@ -7,12 +7,15 @@ import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategyMongoD
 import org.hbrs.se1.ws24.exercises.uebung3.persistence.PersistenceStrategyStream;
 import org.hbrs.se1.ws24.exercises.uebung4.Container;
 import org.hbrs.se1.ws24.exercises.uebung4.UserStory;
+import org.hbrs.se1.ws24.exercises.uebung4.UserStoryInterface;
+import org.hbrs.se1.ws24.exercises.uebung4.view.ContainerView;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -121,6 +124,8 @@ public class ContainerTest {
     assertTrue(testContainer.getCurrentList().contains("iti"));
     assertFalse(testContainer.getCurrentList().contains("ni"));
   }
+
+
 
   /**
    * Hier wird die von der <code>PersistenceStrategy</code> verwendete <code>test.objects.ser</code> gelöscht.
