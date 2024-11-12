@@ -17,7 +17,8 @@ public class UserStory implements UserStoryInterface, Serializable , HasColum{
     private double penalty;
     private static int nextId = 0;
 
-    public UserStory(String title, String acceptanceCriterion, String project, int businessValue, int effort, int risk, int penalty) {
+    public UserStory(String title, String acceptanceCriterion, String project, double businessValue, double effort,
+                     double risk, double penalty) {
         id = ++nextId;
         this.title = title;
         this.acceptanceCriterion = acceptanceCriterion;
@@ -118,25 +119,25 @@ public class UserStory implements UserStoryInterface, Serializable , HasColum{
                 ? project.substring(position * alignmentList.get(3),
                 Math.min(project.length(), (position + 1) * alignmentList.get(3)))
                 : "";
-            line[4] = Integer.toString(businessValue).length() >= position * alignmentList.get(4)
-                ? Integer.toString(businessValue).substring(position * alignmentList.get(4),
-                Math.min(Integer.toString(businessValue).length(), (position + 1) * alignmentList.get(4)))
+            line[4] = Double.toString(businessValue).length() >= position * alignmentList.get(4)
+                ? Double.toString(businessValue).substring(position * alignmentList.get(4),
+                Math.min(Double.toString(businessValue).length(), (position + 1) * alignmentList.get(4)))
                 : "";
-            line[5] = Integer.toString(effort).length() >= position * alignmentList.get(5)
-                ? Integer.toString(effort).substring(position * alignmentList.get(5),
-                Math.min(Integer.toString(effort).length(), (position + 1) * alignmentList.get(5)))
+            line[5] = Double.toString(effort).length() >= position * alignmentList.get(5)
+                ? Double.toString(effort).substring(position * alignmentList.get(5),
+                Math.min(Double.toString(effort).length(), (position + 1) * alignmentList.get(5)))
                 : "";
-            line[6] = Integer.toString(risk).length() >= position * alignmentList.get(6)
-                ? Integer.toString(risk).substring(position * alignmentList.get(6),
-                Math.min(Integer.toString(risk).length(), (position + 1) * alignmentList.get(6)))
+            line[6] = Double.toString(risk).length() >= position * alignmentList.get(6)
+                ? Double.toString(risk).substring(position * alignmentList.get(6),
+                Math.min(Double.toString(risk).length(), (position + 1) * alignmentList.get(6)))
                 : "";
-            line[7] = Integer.toString(penalty).length() >= position * alignmentList.get(7)
-                ? Integer.toString(penalty).substring(position * alignmentList.get(7),
-                Math.min(Integer.toString(penalty).length(), (position + 1) * alignmentList.get(7)))
+            line[7] = Double.toString(penalty).length() >= position * alignmentList.get(7)
+                ? Double.toString(penalty).substring(position * alignmentList.get(7),
+                Math.min(Double.toString(penalty).length(), (position + 1) * alignmentList.get(7)))
                 : "";
-            line[8] = Integer.toString(prioritization).length() >= position * alignmentList.get(8)
-                ? Integer.toString(prioritization).substring(position * alignmentList.get(8),
-                Math.min(Integer.toString(prioritization).length(), (position + 1) * alignmentList.get(8)))
+            line[8] = Double.toString(prioritization).length() >= position * alignmentList.get(8)
+                ? Double.toString(prioritization).substring(position * alignmentList.get(8),
+                Math.min(Double.toString(prioritization).length(), (position + 1) * alignmentList.get(8)))
                 : "";
             returnString = returnString + String.format(alignment, line)+ "\n";
             position++;
@@ -144,11 +145,11 @@ public class UserStory implements UserStoryInterface, Serializable , HasColum{
                 position * alignmentList.get(1) > title.length() &&
                 position * alignmentList.get(2) > acceptanceCriterion.length() &&
                 position * alignmentList.get(3) > project.length() &&
-                position * alignmentList.get(4) > Integer.toString(businessValue).length() &&
-                position * alignmentList.get(5) > Integer.toString(effort).length() &&
-                position * alignmentList.get(6) > Integer.toString(risk).length() &&
-                position * alignmentList.get(7) > Integer.toString(penalty).length() &&
-                position * alignmentList.get(8) > Integer.toString(prioritization).length()) {
+                position * alignmentList.get(4) > Double.toString(businessValue).length() &&
+                position * alignmentList.get(5) > Double.toString(effort).length() &&
+                position * alignmentList.get(6) > Double.toString(risk).length() &&
+                position * alignmentList.get(7) > Double.toString(penalty).length() &&
+                position * alignmentList.get(8) > Double.toString(prioritization).length()) {
                 break;
             }
         }
