@@ -8,20 +8,17 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CommandHandler {
-  public static void run(Container container) {
+  public static void run(Container container, Scanner scanner) {
     String input;
     while (true) {
-      Scanner sc = new Scanner(System.in);
-      input = sc.nextLine();
+      input = scanner.nextLine();
 
       //Befehl von Parameter separieren.
       String[] befehl = input.split(" ");
 
       switch (befehl[0]) {
         case "exit":
-          sc.close();
-          System.exit(0);
-          break;
+          return;
         case "help":
           printHelp();
           break;
@@ -47,7 +44,7 @@ public class CommandHandler {
           ContainerView.dump(container.getCurrentList());
           break;
         case "enter":
-          container.addItem(enterUserStory(input));
+          container.addItem(enterUserStory(input, scanner));
           System.out.println("User Story wurde erfasst.");
           break;
 
@@ -58,6 +55,8 @@ public class CommandHandler {
     }
   }
 
+
+
   /**
    * Legt eine neue UserStory an und gibt diese zurück.
    * Die benötigten Informationen werden entweder aus dem Input heraus genommen oder einzelt abgefragt.
@@ -65,32 +64,31 @@ public class CommandHandler {
    * @param input übergibt den initialen Befehl, der auf der Console eingegeben wurde.
    * @return gibt die UserStory zurück.
    */
-  private static UserStory enterUserStory(String input) {
+  private static UserStory enterUserStory(String input, Scanner scann) {
     String[] parameter = input.split("enter\s\"|[\s]?\"[\s]\"|\"$");
-    int[] valuesGloger = new int[4];
+    double[] valuesGloger = new double[4];
     if (parameter.length == 8) {
       try{
-        valuesGloger[0] = Integer.parseInt(parameter[3]);
-        valuesGloger[1] = Integer.parseInt(parameter[4]);
-        valuesGloger[2] = Integer.parseInt(parameter[5]);
-        valuesGloger[3] = Integer.parseInt(parameter[6]);
+        valuesGloger[0] = Double.parseDouble(parameter[3]);
+        valuesGloger[1] = Double.parseDouble(parameter[4]);
+        valuesGloger[2] = Double.parseDouble(parameter[5]);
+        valuesGloger[3] = Double.parseDouble(parameter[6]);
       } catch (NumberFormatException e) {
         System.out.println("Die Werte für die Gloger Formel konnten nicht in Zahlen umgewandelt werden. Bitte geben sie alle Angaben erneut ein.");
-        enterUserStory("enter");
+        enterUserStory("enter", scann);
       }
     }else{
       parameter = new String[8];
-      Scanner sc = new Scanner(System.in);
       System.out.print("Geben sie den Titel der User Story an: ");
-      parameter[1] = sc.nextLine();
+      parameter[1] = scann.nextLine();
       System.out.print("Geben sie die Akzeptanzkriterien User Story an: ");
-      parameter[2] = sc.nextLine();
-      valuesGloger[0] = enterGloger("Geben sie ihre Bewertung für den Mehrwert an: ");
-      valuesGloger[1] = enterGloger("Geben sie ihre Bewertung für die Strafe an: ");
-      valuesGloger[2] = enterGloger("Geben sie ihre Bewertung für den Aufwand an: ");
-      valuesGloger[3] = enterGloger("Geben sie ihre Risiko an: ");
+      parameter[2] = scann.nextLine();
+      valuesGloger[0] = enterGloger("Geben sie ihre Bewertung für den Mehrwert an: ", scann);
+      valuesGloger[1] = enterGloger("Geben sie ihre Bewertung für die Strafe an: ", scann);
+      valuesGloger[2] = enterGloger("Geben sie ihre Bewertung für den Aufwand an: ", scann);
+      valuesGloger[3] = enterGloger("Geben sie ihre Bewertung für das Risiko an: ", scann);
       System.out.print("Geben sie den Projekt Namen an: ");
-      parameter[7] = sc.nextLine();
+      parameter[7] = scann.nextLine();
     }
     return new UserStory(parameter[1], parameter[2], parameter[7], valuesGloger[0], valuesGloger[2], valuesGloger[3], valuesGloger[1]);
   }
@@ -119,22 +117,25 @@ public class CommandHandler {
    * @param consoleOutput ist die Ausgabe die einen Auffordert den int Wert einzugeben.
    * @return gibt den erfolgreich eingelesenen int Wert zurück.
    */
-  private static int enterGloger(String consoleOutput){
-    Scanner sc2 = new Scanner(System.in);
+  private static double enterGloger(String consoleOutput, Scanner scanner){
     System.out.print(consoleOutput);
-    int valueGloger;
+    double valueGloger = -1;
 
-    try{
-      valueGloger = sc2.nextInt();
-      if (valueGloger < 1){throw new InputMismatchException("Der Wert ist zu klein: ");}
-    } catch (InputMismatchException e) {
-      if (e.getMessage()== null) {
-        return enterGloger("Der eingegebene Wert ist keine Zahl. Bitte versuchen sie es erneut: ");
-      }else {
-        return enterGloger(e.getMessage());
+    System.out.print(consoleOutput);
+
+    while (valueGloger  <= 0){
+      try {
+        valueGloger = scanner.nextDouble();
+      }catch (InputMismatchException e){
+        System.out.print("Der eingegebene Wert ist keine Zahl. Bitte versuchen sie es erneut: ");
+        scanner.nextLine();
+        continue;
+      }
+      if(valueGloger <= 0){
+        System.out.print("Der Wert ist zu klein: ");
       }
     }
-
+    scanner.nextLine();
     return valueGloger;
   }
 }

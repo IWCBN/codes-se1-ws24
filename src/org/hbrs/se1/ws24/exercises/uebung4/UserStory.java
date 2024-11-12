@@ -6,15 +6,15 @@ public class UserStory implements UserStoryInterface, Serializable , HasColum{
     private final int id;
     private String title;
     private String acceptanceCriterion;
-    private int prioritization;
+    private double prioritization;
     private String project;
-    private int businessValue;
-    private int effort;
-    private int risk;
-    private int penalty;
+    private double businessValue;
+    private double effort;
+    private double risk;
+    private double penalty;
     private static int nextId = 1;
 
-    public UserStory(String title, String acceptanceCriterion, String project, int businessValue, int effort, int risk, int penalty) {
+    public UserStory(String title, String acceptanceCriterion, String project, double businessValue, double effort, double risk, double penalty) {
         id = nextId++;
         this.title = title;
         this.acceptanceCriterion = acceptanceCriterion;
@@ -58,7 +58,7 @@ public class UserStory implements UserStoryInterface, Serializable , HasColum{
     }
 
     @Override
-    public int getPrioritization() {
+    public double getPrioritization() {
         return prioritization;
     }
 

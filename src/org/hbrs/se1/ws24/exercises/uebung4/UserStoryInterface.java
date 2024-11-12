@@ -8,7 +8,7 @@ public interface UserStoryInterface {
     public void setTitle(String title);
     public String getAcceptanceCriterion();
     public void setAcceptanceCriterion(String acceptanceCriterion);
-    public int getPrioritization();
+    public double getPrioritization();
     public String getProject();
     public void setProject(String project);
 }
