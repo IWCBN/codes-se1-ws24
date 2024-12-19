@@ -1,11 +1,16 @@
 package org.hbrs.se1.ws24.exercises.uebung9;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ComplexDocument implements Document{
     private int id;
     private List<Document> documents;
+
+    public ComplexDocument() {
+        documents = new ArrayList<Document>();
+    }
 
     @Override
     public void setID(int id) {
