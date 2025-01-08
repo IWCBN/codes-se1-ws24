@@ -13,14 +13,18 @@ public class TextDocument extends CoreDocument{
 
         this.encoding = encoding;
 
-        if(encoding == Encoding.UTF8){
-            this.text = text.getBytes(StandardCharsets.UTF_8);
-        } else if(encoding == Encoding.UTF16){
-            this.text = text.getBytes(StandardCharsets.UTF_16);
-        } else if(encoding == Encoding.UTF32){
-            this.text = text.getBytes("UTF-32");
-        } else {
-            throw new UnsupportedEncodingException();
+        switch(encoding) {
+            case UTF8:
+                this.text = text.getBytes(StandardCharsets.UTF_8);
+                break;
+            case UTF16:
+                this.text = text.getBytes(StandardCharsets.UTF_16);
+                break;
+            case UTF32:
+                this.text = text.getBytes("UTF-32");
+                break;
+            default:
+                throw new UnsupportedEncodingException();
         }
     }
 
@@ -30,7 +34,16 @@ public class TextDocument extends CoreDocument{
     }
 
     public enum Encoding {
-        UTF8, UTF16, UTF32
+        UTF8("UTF-8"), UTF16("UTF-16"), UTF32("UTF-32");
+
+        private final String code;
+
+        private Encoding(String code) {
+            this.code = code;
+        }
+        public String getCode() {
+            return code;
+        }
     }
 }
 

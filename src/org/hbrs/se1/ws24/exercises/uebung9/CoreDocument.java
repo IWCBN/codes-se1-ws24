@@ -14,6 +14,4 @@ public abstract class CoreDocument implements Document {
         return id;
     }
 
-    public abstract int getSize();
-
 }
