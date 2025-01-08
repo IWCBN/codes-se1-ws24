@@ -1,5 +1,7 @@
 package org.hbrs.se1.ws24.tests.uebung10;
 
+//Das ist mein Kommentar!!!!!!!!!!
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
