@@ -5,8 +5,6 @@ package org.hbrs.se1.ws24.tests.uebung10;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public class MyPrettyRectangleTest {
 
     private MyPrettyRectangle left;
