@@ -2,8 +2,12 @@ package org.hbrs.se1.ws24.tests.uebung10;
 
 //Das ist mein Kommentar!!!!!!!!!!
 
+import org.hbrs.se1.ws24.exercises.uebung10.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MyPrettyRectangleTest {
 
@@ -74,7 +78,9 @@ public class MyPrettyRectangleTest {
         // Fuer einen korrekten Vergleich der MyPoint-Objekte sollten sie die Methode equals entsprechend ueberrschreiben
         // (siehe dazu auch Hinweise in Kapitel 7).
         //
-        // [ihr Code]
+        assertEquals( new MyPoint(2.5, 2.5), middle.getCenter());
+        assertEquals( new MyPoint(2.5, 2.0), right.getCenter() );
+        assertEquals( new MyPoint(5.5, 2.5), somewhere.getCenter() );
     }
 
     /*
@@ -92,8 +98,9 @@ public class MyPrettyRectangleTest {
         // Weitere Infos: http://stackoverflow.com/questions/7554281/junit-assertions-make-the-assertion-between-float
 
         assertEquals( 6.0, left.getArea() , 0.0001);
-        // [ihr Code]
-
+        assertEquals( 1.0, middle.getArea() , 0.0001);
+        assertEquals( 12.0, right.getArea() , 0.0001);
+        assertEquals( 3.0, somewhere.getArea() , 0.0001);
     }
 
 
@@ -113,9 +120,9 @@ public class MyPrettyRectangleTest {
         // Weitere Infos: http://stackoverflow.com/questions/7554281/junit-assertions-make-the-assertion-between-floats
 
         assertEquals( 10.0, left.getPerimeter() , 0.0001 );
-
-        // [ihr Code]
-
+        assertEquals( 4.0, middle.getPerimeter() , 0.0001 );
+        assertEquals( 14.0, right.getPerimeter() , 0.0001 );
+        assertEquals( 8.0, somewhere.getPerimeter() , 0.0001 );
     }
 
     /*
@@ -129,20 +136,27 @@ public class MyPrettyRectangleTest {
         // verwenden!
 
         MyPrettyRectangle other = left;
-
-        // [ihr Code]
+        assertSame(left, other);
+        assertNotSame(left, right);
+        assertNotSame(left, middle);
+        assertNotSame(left, somewhere);
 
         // Bitte drei Assertions hinzufuegen, um die Gleichheit von Rechteck-Objekten zu ueberpruefen.
         // Bitte nur die Assertion assertTrue verwenden:
-        //
-        // [ihr Code]
 
+        assertTrue(left.getArea() == other.getArea());
+        //!!!!assertTrue(left.getCenter() == other.getCenter());
+        assertTrue(left.getPerimeter() == other.getPerimeter());
+        //!!!!assertTrue(left.equals(other));
 
 
         // Bitte drei weitere Assertions hinzufuegen, welce die Objekt-Identitaet des Rechtecks 'left' mit allen anderen
         // Rechtecken ueberprueft (inklusive other). Bitte hier nur die Assertions assertTrue und assertFalse verwenden.
-        //
-        // [ihr Code]
+
+        //!!!!assertTrue(left.equals(other));
+        assertFalse(left.equals(right));
+        assertFalse(left.equals(middle));
+        assertFalse(left.equals(somewhere));
 
     }
 
