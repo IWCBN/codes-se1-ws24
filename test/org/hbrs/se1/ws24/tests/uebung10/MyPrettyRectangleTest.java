@@ -60,6 +60,9 @@ public class MyPrettyRectangleTest {
         assertTrue(  right.contains(right) );
 
         // [ihr Code]
+        assertFalse(  right.contains(somewhere) );
+        assertFalse(  left.contains(right) );
+        assertTrue(  left.contains(left) );
     }
 
     /*
@@ -145,15 +148,15 @@ public class MyPrettyRectangleTest {
         // Bitte nur die Assertion assertTrue verwenden:
 
         assertTrue(left.getArea() == other.getArea());
-        //!!!!assertTrue(left.getCenter() == other.getCenter());
+        assertTrue(left.getCenter().equals(other.getCenter()));
         assertTrue(left.getPerimeter() == other.getPerimeter());
-        //!!!!assertTrue(left.equals(other));
+        assertTrue(left.equals(other));
 
 
         // Bitte drei weitere Assertions hinzufuegen, welce die Objekt-Identitaet des Rechtecks 'left' mit allen anderen
         // Rechtecken ueberprueft (inklusive other). Bitte hier nur die Assertions assertTrue und assertFalse verwenden.
 
-        //!!!!assertTrue(left.equals(other));
+        assertTrue(left.equals(other));
         assertFalse(left.equals(right));
         assertFalse(left.equals(middle));
         assertFalse(left.equals(somewhere));
@@ -179,25 +182,29 @@ public class MyPrettyRectangleTest {
         // Testen sie die so erhaltene Bounding Box anhand eines SOLL / IST Vergleichs.
         // Die Methode der Klasse BoundingBoxFactory sollten sie selbst definieren und implementieren.
         //
-        // [ihr Code]
+        MyPrettyRectangle Box = MyPrettyRectangle.boundingBox(rect);
+
+        assertTrue(Box.contains(middle));
+        assertTrue(Box.contains(right));
+        assertTrue(Box.contains(somewhere));
 
 
         // Testen sie zudem, ob ueberhaupt ein Objekt zurueckgegeben wird,
         // d.h. der Rueckgabe-Wert ungleich NULL ist
         //
-        // [ihr Code]
+        assertNotNull(Box);
 
 
 
         // Test, ob ein leeres Array ein "Null-Rectangle" (vier mal die Koordinaten 0) zurueckliefert:
         //
-        // [ihr Code]
+        assertEquals(new MyPrettyRectangle(0,0,0,0), MyPrettyRectangle.boundingBox(new MyPrettyRectangle[0]));
 
 
         // Test, ob die Übergabe eines NULL-Werts erfolgreich abgefangen wurde (Rueckgabe == NULL!)
         //
         // [ihr Code]
-
+        assertThrowsExactly(IllegalArgumentException.class, ()->MyPrettyRectangle.boundingBox(null));
 
     }
 
